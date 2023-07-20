@@ -1,0 +1,9 @@
+lv_area.h:111:20:lv_area_copy	1
+lv_area.h:124:26:lv_area_get_width	1
+lv_area.h:134:26:lv_area_get_height	1
+lv_mem.h:82:20:lv_memzero	1
+lv_color.h:483:42:lv_color_premult	1
+lv_color.h:508:48:lv_color_mix_premult	1
+lv_color.h:608:26:lv_color_hex	1
+lv_draw_sw_img.c:47:28:lv_draw_sw_img_decoded	29
+lv_draw_sw_img.c:208:13:convert_cb	13

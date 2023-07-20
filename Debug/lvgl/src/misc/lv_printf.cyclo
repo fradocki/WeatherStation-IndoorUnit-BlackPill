@@ -1,0 +1,12 @@
+lv_printf.c:122:20:_out_buffer	2
+lv_printf.c:130:20:_out_null	1
+lv_printf.c:140:28:_strnlen_s	3
+lv_printf.c:149:20:_is_digit	3
+lv_printf.c:155:21:_atoi	2
+lv_printf.c:165:15:_out_rev	7
+lv_printf.c:194:15:_ntoa_format	31
+lv_printf.c:248:15:_ntoa_long	8
+lv_printf.c:273:15:_ntoa_long_long	8
+lv_printf.c:547:12:_vsnprintf	65
+lv_printf.c:862:5:lv_snprintf_builtin	1
+lv_printf.c:871:5:lv_vsnprintf_builtin	1

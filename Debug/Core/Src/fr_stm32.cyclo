@@ -1,0 +1,8 @@
+lv_color.h:608:26:lv_color_hex	1
+fr_stm32.c:10:6:pobierz_czas	1
+fr_stm32.c:39:6:sleep	2
+fr_stm32.c:118:6:SetNextAlarm	3
+fr_stm32.c:157:5:CheckAlarm	8
+fr_stm32.c:186:6:pobierz_alarm	4
+fr_stm32.c:225:6:update_ui_data	1
+fr_stm32.c:256:6:init_lvgl	1

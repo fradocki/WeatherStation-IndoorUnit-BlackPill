@@ -1,0 +1,2 @@
+lv_mem.h:82:20:lv_memzero	1
+lv_gc.c:39:6:_lv_gc_clear_roots	1

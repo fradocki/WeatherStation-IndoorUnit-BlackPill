@@ -1,0 +1,10 @@
+lv_area.h:124:26:lv_area_get_width	1
+lv_area.h:134:26:lv_area_get_height	1
+lv_color.h:454:48:lv_color_mix	1
+lv_draw_sw_transform.c:84:6:lv_draw_sw_transform	8
+lv_draw_sw_transform.c:172:13:rgb_no_aa	8
+lv_draw_sw_transform.c:215:13:argb_no_aa	6
+lv_draw_sw_transform.c:249:13:rgb565a8_no_aa	6
+lv_draw_sw_transform.c:280:13:argb_and_rgb_aa	41
+lv_draw_sw_transform.c:481:13:a8_aa	22
+lv_draw_sw_transform.c:558:13:transform_point_upscaled	5

@@ -1,0 +1,9 @@
+lv_area.h:124:26:lv_area_get_width	1
+lv_mem.h:82:20:lv_memzero	1
+lv_color.h:390:24:lv_color_to32	1
+lv_color.h:595:23:lv_color_brightness	1
+lv_draw_sw.c:42:6:lv_draw_sw_init_ctx	1
+lv_draw_sw.c:68:6:lv_draw_sw_deinit_ctx	1
+lv_draw_sw.c:76:6:lv_draw_sw_wait_for_finish	1
+lv_draw_sw.c:82:6:lv_draw_sw_buffer_copy	2
+lv_draw_sw.c:107:6:lv_draw_sw_buffer_convert	10
