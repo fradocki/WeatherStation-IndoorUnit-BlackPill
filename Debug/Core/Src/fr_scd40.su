@@ -1,3 +1,0 @@
-../Core/Src/fr_scd40.c:12:6:SCD40_writecommand	16	static
-../Core/Src/fr_scd40.c:30:9:sensirion_common_generate_crc	24	static
-../Core/Src/fr_scd40.c:59:10:getAirQualityColor	80	static

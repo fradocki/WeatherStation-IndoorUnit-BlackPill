@@ -1,7 +1,0 @@
-../Core/Src/fr_sd_handle.c:24:5:bufsize	24	static
-../Core/Src/fr_sd_handle.c:31:6:clear_buffer	16	static
-../Core/Src/fr_sd_handle.c:36:6:send_uart	24	static
-../Core/Src/fr_sd_handle.c:42:6:sd_mount	8	static
-../Core/Src/fr_sd_handle.c:49:6:sd_free_space	8	static
-../Core/Src/fr_sd_handle.c:60:6:sd_write	8	static
-../Core/Src/fr_sd_handle.c:72:6:sd_read	8	static

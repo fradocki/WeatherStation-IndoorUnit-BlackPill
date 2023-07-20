@@ -1,4 +1,0 @@
-fr_ESP8266_messages.c:23:6:load_msg	2
-fr_ESP8266_messages.c:125:6:load_hotspot	2
-fr_ESP8266_messages.c:216:6:wifi_reset	1
-fr_ESP8266_messages.c:232:6:change_wifi	1

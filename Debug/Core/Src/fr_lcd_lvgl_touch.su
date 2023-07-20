@@ -1,3 +1,0 @@
-../Core/Src/fr_lcd_lvgl_touch.c:26:6:monitor_cb	24	static
-../Core/Src/fr_lcd_lvgl_touch.c:32:6:Display_init	16	static
-../Core/Src/fr_lcd_lvgl_touch.c:75:13:tft_flush	56	static

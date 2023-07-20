@@ -1,5 +1,0 @@
-lv_area.h:111:20:lv_area_copy	1
-lv_area.h:124:26:lv_area_get_width	1
-lv_mem.h:82:20:lv_memzero	1
-lv_draw_sw_letter.c:97:6:lv_draw_sw_letter	13
-lv_draw_sw_letter.c:167:35:draw_letter_normal	23

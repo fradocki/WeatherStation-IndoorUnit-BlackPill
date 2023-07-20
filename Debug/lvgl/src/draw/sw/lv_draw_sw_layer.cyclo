@@ -1,7 +1,0 @@
-lv_area.h:124:26:lv_area_get_width	1
-lv_area.h:134:26:lv_area_get_height	1
-lv_mem.h:82:20:lv_memzero	1
-lv_draw_sw_layer.c:45:31:lv_draw_sw_layer_create	8
-lv_draw_sw_layer.c:88:6:lv_draw_sw_layer_adjust	2
-lv_draw_sw_layer.c:106:6:lv_draw_sw_layer_blend	2
-lv_draw_sw_layer.c:128:6:lv_draw_sw_layer_destroy	1

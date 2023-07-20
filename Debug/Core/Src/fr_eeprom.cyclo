@@ -1,2 +1,0 @@
-fr_eeprom.c:18:9:EEPROM_Write_Char	4
-fr_eeprom.c:45:9:EEPROM_Read_Char	4
