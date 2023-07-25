@@ -8,6 +8,8 @@
 // Function to load text from user interface and process it
 void laduj_tekst(lv_event_t * e)
 {
+    RTC_TimeTypeDef time_set= {0};
+    RTC_DateTypeDef data_set= {0};
     // Get date and time from text areas in user interface
     data_set.Date = (uint8_t) atoi(lv_textarea_get_text(ui_TextArea1));
     data_set.Month = (uint8_t) atoi(lv_textarea_get_text(ui_TextArea2));
@@ -35,8 +37,8 @@ void laduj_tekst(lv_event_t * e)
 
         // Handle PomiarFlag
         if(PomiarFlag){
-            pobierz_czas();
-            SetNextAlarm();
+            get_time();
+            set_next_alarm();
         }
 
         // Update UI with green color indicating success
@@ -167,9 +169,11 @@ void manageChartSeries(uint8_t rysuj) {
 // This function determines the range, minor count, major count, and division lines based on the value of 'pomiar'
 void determineParameters(uint16_t pomiar, int min, int max, int* rangemin, int* rangemax, uint16_t* minor_cnt, uint16_t* major_cnt, uint16_t* divison_lines) {
     // Determine parameters based on pomiar
+    uint8_t decimalFactor=1;
     if(pomiar==Pres_OUT){
         calculateRangeParameters(rangemin, rangemax, major_cnt, min, max, 5, 5);
         *minor_cnt=5;
+        decimalFactor=1;
     }
     else if(pomiar==CO2_IN){
         calculateRangeParametersForCO2(rangemin, rangemax, major_cnt, min, max);
@@ -182,11 +186,12 @@ void determineParameters(uint16_t pomiar, int min, int max, int* rangemin, int* 
     else{
         calculateRangeParameters(rangemin, rangemax, major_cnt, min, max, 50, 50);
         *minor_cnt= (*major_cnt > 10) ? 5 : 2;
+        decimalFactor=10;
     }
     *divison_lines = (*major_cnt * *minor_cnt) - 1; // Calculate division lines
     // Set range and division lines for the chart
-    lv_chart_set_range(ui_Chart1, LV_CHART_AXIS_PRIMARY_Y, *rangemin, *rangemax);
-    lv_chart_set_range(ui_Chart1, LV_CHART_AXIS_SECONDARY_Y, *rangemin, *rangemax);
+    lv_chart_set_range(ui_Chart1, LV_CHART_AXIS_PRIMARY_Y, (*rangemin)/decimalFactor, (*rangemax)/decimalFactor );
+    lv_chart_set_range(ui_Chart1, LV_CHART_AXIS_SECONDARY_Y, *rangemin, *rangemax );
     lv_chart_set_axis_tick(ui_Chart1, LV_CHART_AXIS_PRIMARY_Y, 10, 5, *major_cnt, *minor_cnt, true, 50);
     lv_chart_set_div_line_count(ui_Chart1, *divison_lines, 24);
 }
@@ -195,7 +200,7 @@ void determineParameters(uint16_t pomiar, int min, int max, int* rangemin, int* 
 void rysuj_wielkosc(lv_event_t * e) {
     uint16_t pomiar = lv_dropdown_get_selected(ui_Dropdown2);
     uint16_t data = lv_dropdown_get_selected(ui_Dropdown1);
-    uint8_t rysuj = readDataFromPosition(pomiar, data);
+    uint8_t rysuj = read_data_from_position(pomiar, data);
 
     int min, max, min2;
     calculateMinMax(&min, &max, &min2);

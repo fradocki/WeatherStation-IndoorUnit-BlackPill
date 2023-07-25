@@ -4,7 +4,7 @@
 uint16_t Xread, Yread;
 
 // Function to read touch events from an XPT2046 touch controller using LittlevGL (lvgl) library.
-void lvXPT2064_Read(lv_indev_drv_t * drv, lv_indev_data_t*data)
+void lv_xpt_2064_read(lv_indev_drv_t * drv, lv_indev_data_t*data)
 {
     // If a touch event is detected (TouchState == XPT2046_TOUCHED)
     if(TouchState==XPT2046_TOUCHED)

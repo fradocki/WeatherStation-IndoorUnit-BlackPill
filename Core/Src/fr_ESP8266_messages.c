@@ -25,7 +25,7 @@ void load_msg(){
 	tab_polecenie[0].time_init= 0;
 	sprintf(tab_polecenie[0].msg,"AT+CWMODE=1\r\n");
 	tab_polecenie[0].time_response = 4000;
-	sprintf(tab_polecenie[0].rsp,"OK\r");
+	sprintf(tab_polecenie[0].rsp,"Ok\r");
 	tab_polecenie[0].powrot.etap =3;
 	tab_polecenie[0].powrot.krok =0;
 	tab_polecenie[0].time_exit =0;

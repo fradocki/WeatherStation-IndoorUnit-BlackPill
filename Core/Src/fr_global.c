@@ -16,8 +16,7 @@ uint32_t gradient_co2;
 volatile uint8_t RxBuf[RxBuf_SIZE]="\0";
 volatile uint8_t MainBuf[RxMainBuf_SIZE];
 uint8_t flaga=1;
-uint16_t ogon=0;
-uint16_t glowa=0;
+uint16_t ogon=0, glowa=0;
 uint16_t znak=0;
 touch touchtable[MAXSAMPLE];
 volatile int touchsample=0;
@@ -46,32 +45,21 @@ uint16_t indy;
 uint8_t iter_sd_card=0;
 uint8_t done=1;
 
-RTC_TimeTypeDef time_set= {0};
-RTC_DateTypeDef data_set= {0};
 RTC_TimeTypeDef time_get= {0};
 RTC_DateTypeDef data_get= {0};
-RTC_DateTypeDef data_measure= {0};
-RTC_TimeTypeDef time_measure= {0};
+
 
 uint8_t backlight=0;
 uint8_t AlarmFlag, PomiarFlag=0, BackLightFlag;
 uint8_t screen_change=0;
 
-long double TemperatureIN = 0;;
-long double HumidityIN = 0;
-
-uint16_t i1=0, flaga_szukania=0, rok=2000;
+uint16_t i1=0, search_flag=0, rok=2000;
 uint32_t color = 0xFFFFFF;
 uint8_t init_lv=0;
 uint8_t set_lv=0;
 uint8_t wifi_set=0;
 uint8_t wifi_list_send;
-uint32_t dataw=0;
-uint32_t datat=0;
-uint32_t datap=0;
-uint32_t datad;
 uint16_t dust;
-uint16_t AD_BAT;
 uint32_t bat_lvl_pre, bat_lvl_pre_sensor;
 uint8_t nie_szuka_wifi=1;
 double bat_lvl;
@@ -93,16 +81,7 @@ struct search_letter_table sensor_data_table[5];
 ////////////////////////////////////SD CARD VARIBLES/////////////////////////////////////////////
 FATFS fs;  // file system
 FIL file; // File
-FILINFO fno;
 FRESULT fresult;  // result
-UINT br, bw;  // file read/write count
-
-/**** capacity related *****/
-FATFS *pfs;
-DWORD fre_clust;
-uint32_t total, free_space;
-
-char buffer_sd[BUFFER_SIZE];  // to store strings..
 
 lv_indev_drv_t indev_drv;
 

@@ -91,8 +91,8 @@ void DHT22_Measure(void){
     temp = ((temp_byte1 << 8) | temp_byte2); // Merge temperature bytes
     rh = ((rh_byte1 << 8) | rh_byte2); // Merge humidity bytes
     // Convert the 16-bit raw values to temperature and humidity
-    TemperatureIN = (float) (temp / 10.0);
-    HumidityIN = (float) (rh / 10.0);
+    long double TemperatureIN = (float) (temp / 10.0);
+    long double HumidityIN = (float) (rh / 10.0);
 
     measure_tab[Measure_IN].pomiar[0].num=floor(HumidityIN);
 	measure_tab[Measure_IN].pomiar[0].tenths=(uint8_t)(modff(HumidityIN, &HumidityIN)*10);
@@ -100,12 +100,7 @@ void DHT22_Measure(void){
 	measure_tab[Measure_IN].pomiar[1].tenths=(uint8_t)(modff(TemperatureIN, &HumidityIN)*10);
 	sprintf(str_temp_in, "%2u.%1u", measure_tab[Measure_IN].pomiar[0].num, measure_tab[Measure_IN].pomiar[0].tenths);
 	sprintf(str_hum_in, "%2u.%1u", measure_tab[Measure_IN].pomiar[1].num, measure_tab[Measure_IN].pomiar[1].tenths);
-	//strncpy(measure_tab[Measure_IN].pomiar[1],str_temp_in,4);
-	//sprintf(print, "ind: %d, UART1:RxXferCount: %d\r\n\r\n", ind, (int) huart1.RxXferCount);
-	HAL_RTC_GetTime(&hrtc, &time_measure, RTC_FORMAT_BIN);
-	writeDataAtPosition(measure_tab);
-	//lv_chart_series_t * ui_Chart2_series_1 = lv_chart_add_series(ui_Chart2, lv_color_hex(0x808080), LV_CHART_AXIS_SECONDARY_Y);
-	//static lv_coord_t ui_Chart1_series_1_array[97];
-	//lv_chart_set_ext_y_array(ui_Chart1, ui_Chart1_series_1, ui_Chart1_series_1_array);
+	write_data_at_position(measure_tab);
+
 }
 

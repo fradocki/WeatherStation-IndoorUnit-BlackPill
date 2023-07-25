@@ -10,11 +10,12 @@ extern ADC_HandleTypeDef hadc1;
 extern double bat_lvl;
 extern char bat_lvl_lb[7];
 extern uint32_t bat_lvl_int;
-extern uint16_t AD_BAT;
 extern uint32_t bat_lvl_pre;
 
 // Measures the battery voltage and calculates the battery level
 void measure_battery(){
+
+    uint16_t AD_BAT;
     // The battery level data array
     uint16_t bat_lvl_tab[20];
     double voltage;

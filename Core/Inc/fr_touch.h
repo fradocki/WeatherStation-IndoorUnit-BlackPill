@@ -43,8 +43,8 @@ extern volatile XPT2046_State TouchState;
 extern volatile int touchsample;
 extern volatile int touchsample1;
 void xpt2046_read(SPI_HandleTypeDef*, volatile int);
-void kalibracja(SPI_HandleTypeDef *_hspi);
-void dotyk(SPI_HandleTypeDef *_hspi);
+void calibration(SPI_HandleTypeDef *_hspi);
+void touch_handle(SPI_HandleTypeDef *_hspi);
 void touch_irq(void);
 
 #endif /* DEF_TOUCH2046_H */

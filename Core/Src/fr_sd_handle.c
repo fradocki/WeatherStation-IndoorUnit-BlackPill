@@ -47,6 +47,8 @@ void sd_mount(void){
 }
 
 void sd_free_space(void){
+    extern char buffer_sd[BUFFER_SIZE];
+
   	f_getfree("", &fre_clust, &pfs);
   	total = (uint32_t)((pfs->n_fatent - 2) * pfs->csize * 0.5);
   	sprintf (buffer_sd, "SD CARD Total Size: \t%lu\n",total);
@@ -70,6 +72,8 @@ void sd_write(void){
   	if (fresult == FR_OK)send_uart ("File1.txt created and the data is written \n");
 }
 void sd_read(void){
+    extern char buffer_sd[BUFFER_SIZE];
+
   	/* Open file to read */
   	fresult = f_open(&fil, "file1.txt", FA_READ);
 

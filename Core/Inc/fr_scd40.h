@@ -24,6 +24,6 @@ void SCD40_readdata(uint16_t command);
 uint8_t sensirion_common_generate_crc(uint8_t* data, uint16_t count);
 extern TIM_HandleTypeDef htim5;
 extern uint8_t buf[2];
-uint32_t getAirQualityColor(int ppm);
+uint32_t get_air_quality_color(uint16_t ppm);
 
 #endif /* SRC_SCD40_H_ */

@@ -22,7 +22,7 @@
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
-void Display_init(int rotation);
+void display_init(int rotation);
 static void tft_flush(lv_disp_drv_t * drv, const lv_area_t * area, lv_color_t * color_p);
 
 void DMA_Handler (void);

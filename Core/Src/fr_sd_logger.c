@@ -7,19 +7,23 @@
 #include "fr_sd_logger.h"
 
 // Function to write sensor data at a particular position in the file on the SD card.
-void writeDataAtPosition(struct measure_type * measure_tab){
+void write_data_at_position(struct measure_type * measure_tab){
 	unsigned int bytesWritten;
 	char temp_file_name[28]="\0";
 	int result=-1;
+    RTC_DateTypeDef data_measure= {0};
+    RTC_TimeTypeDef time_measure= {0};
+
 	HAL_RTC_GetTime(&hrtc, &time_measure, RTC_FORMAT_BIN);
-	unsigned long position = calculate3MinPeriodsElapsed(time_measure);
+	unsigned long position = calculate_3min_periods_elapsed(time_measure);
+
 	HAL_RTC_GetDate(&hrtc, &data_measure, RTC_FORMAT_BIN);
 
 	// Mount the SD card
  	if (!mount_sd_card()){
 		return 0;
 	}
-    // Iterate over the measurement data
+    // Iterate over the measurement data one time to not block other parts of program
     if(iter_sd_card < (measure_tab->iter)){
         strcpy(temp_file_name, measure_to_file_name[measure_tab->ind[iter_sd_card]]);
         sprintf(temp_file_name, "%s_%02u_%02u_%04u.txt", temp_file_name, data_measure.Date, data_measure.Month, (data_measure.Year+rok));
@@ -39,11 +43,12 @@ void writeDataAtPosition(struct measure_type * measure_tab){
 }
 
 // Function to read sensor data from a particular position in the file on the SD card.
-uint8_t readDataFromPosition(int measure_ind, int data) {
+uint8_t read_data_from_position(int measure_ind, int data) {
 	struct sensor_table sensor_data_read_temp[480] = {0};
 	char temp_file_name[28] = "\0";
 	uint8_t rysuj = 0;
 	int result = -1;
+    RTC_DateTypeDef data_measure= {0};
 
 	// Get the current date
 	HAL_RTC_GetDate(&hrtc, &data_measure, RTC_FORMAT_BIN);
@@ -202,24 +207,22 @@ void createAndWriteFile(struct measure_type * measure_tab, int i, unsigned long 
 // Function to process data read from file depending on a data type read
 uint8_t processData(int measure_ind, struct sensor_table * sensor_data_read_temp){
     uint8_t rysuj = 0;
+    uint8_t factor=10;
 
-    if((measure_ind != CO2_IN) && (measure_ind != Dust_OUT)) {
-        for(int i = 0; i < 96; i++){
-            sensor_data_read[i] = (sensor_data_read_temp[i * 5].num) * 10 + sensor_data_read_temp[i * 5].tenths;
-            rysuj = 1;
-        }
-    } else {
-        for(int i = 0; i < 96; i++){
-            sensor_data_read[i] = (sensor_data_read_temp[i * 5].num) * 100 + sensor_data_read_temp[i * 5].tenths;
-            rysuj = 1;
-        }
+    if((measure_ind == CO2_IN) || (measure_ind == Dust_OUT) || (measure_ind == Pres_OUT)) {
+        factor=100;
+    }
+
+    for(int i = 0; i < 96; i++){
+        sensor_data_read[i] = (sensor_data_read_temp[i * 5].num) * factor + sensor_data_read_temp[i * 5].tenths;
+        rysuj = 1;
     }
 
     return rysuj;
 }
 
 // Function to calculate number of 3-minute periods elapsed from midnight till the given time.
-unsigned long calculate3MinPeriodsElapsed(RTC_TimeTypeDef time_measure) {
+unsigned long calculate_3min_periods_elapsed(RTC_TimeTypeDef time_measure) {
   int hours = time_measure.Hours;
   int minutes = time_measure.Minutes;
   int totalMinutes = hours * 60 + minutes; // convert hours to minutes and add to minutes

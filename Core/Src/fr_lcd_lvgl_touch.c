@@ -29,7 +29,7 @@ void monitor_cb(lv_disp_drv_t * d, uint32_t t, uint32_t p)
 }
 
 // Initializes the Display.
-void Display_init(int rotation)
+void display_init(int rotation)
 {
     static lv_disp_draw_buf_t buf;
 

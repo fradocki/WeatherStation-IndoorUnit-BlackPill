@@ -7,7 +7,7 @@
 #include "fr_stm32.h"
 
 // Function to get current time and date from RTC
-void pobierz_czas() {
+void get_time() {
 
     // Get current time from RTC
     HAL_RTC_GetTime(&hrtc, &time_get, RTC_FORMAT_BIN);
@@ -115,7 +115,7 @@ void sleep(){
 
 
 // Function to set the next alarm
-void SetNextAlarm(void)
+void set_next_alarm(void)
 {
     RTC_AlarmTypeDef sAlarm = {0}; // RTC alarm structure to store the next alarm setting
 
@@ -154,7 +154,7 @@ void SetNextAlarm(void)
 
 
 // Function to check if alarm will be within 5s to not go into standby mode
-int CheckAlarm(){
+int check_alarm(){
     RTC_AlarmTypeDef sAlarm = {0}; // RTC alarm structure to store the current alarm setting
     HAL_RTC_GetAlarm(&hrtc, &sAlarm, RTC_ALARM_A, RTC_FORMAT_BIN); // Get the current alarm setting
 
@@ -183,7 +183,7 @@ int CheckAlarm(){
 
 
 // Function to fetch alarm from RTC and display time remaining for the next alarm
-void pobierz_alarm(){
+void get_alarm(){
     // If Alarm A interrupt is enabled and measurement flag is set
     if(((RTC->CR)&RTC_CR_ALRAIE) && PomiarFlag){
         char alarm_left[10]; // Array to store the time left for the next alarm in string format
@@ -241,7 +241,7 @@ void update_ui_data() {
     lv_bar_set_value(ui_Bar3, dust, LV_ANIM_OFF); // set dust level progress bar value
     lv_obj_set_style_bg_color(ui_Bar3, lv_color_hex(gradient_dust), LV_PART_INDICATOR | LV_STATE_DEFAULT); // set dust level progress bar color
 
-    gradient_co2 = getAirQualityColor(co2_raw); // get CO2 color based on current CO2 level
+    gradient_co2 = get_air_quality_color(co2_raw); // get CO2 color based on current CO2 level
     lv_bar_set_value(ui_Bar1, co2_raw, LV_ANIM_OFF); // set CO2 progress bar value
     lv_obj_set_style_bg_color(ui_Bar1, lv_color_hex(gradient_co2), LV_PART_INDICATOR | LV_STATE_DEFAULT); // set CO2 progress bar color
 
@@ -265,10 +265,10 @@ void init_lvgl()
     lv_init();
 
     // Initialize the display with id 0
-    Display_init(0);
+    display_init(0);
 
     // Get current time to show on initial screen
-    pobierz_czas();
+    get_time();
 
     // Initialize the User Interface (UI)
     ui_init();
@@ -280,7 +280,7 @@ void init_lvgl()
     indev_drv.type = LV_INDEV_TYPE_POINTER;
 
     // Assign a read function for the touch screen device driver
-    indev_drv.read_cb = lvXPT2064_Read;
+    indev_drv.read_cb = lv_xpt_2064_read;
 
     // Register the input device driver to the LVGL library
     lv_indev_drv_register(&indev_drv);

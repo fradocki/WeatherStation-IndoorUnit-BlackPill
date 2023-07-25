@@ -15,7 +15,7 @@ extern I2C_HandleTypeDef hi2c1;
 
 // This function writes data to the EEPROM
 // Returns an error code - 0 means no errors, anything above 0 means there were issues.
-uint8_t EEPROM_Write_Char(uint16_t page, uint8_t *data) {
+uint8_t eeprom_write_char(uint16_t page, uint8_t *data) {
     uint16_t dataSize = strlen(data);   // Calculate the length of the data
     uint16_t startPage = page;           // Define the starting page
     uint16_t endPage = page + (dataSize / 17);   // Calculate the end page
@@ -42,7 +42,7 @@ uint8_t EEPROM_Write_Char(uint16_t page, uint8_t *data) {
 
 // This function reads data from the EEPROM
 // Returns an error code - 0 means no errors, anything above 0 means there were issues.
-uint8_t EEPROM_Read_Char(uint16_t page, uint8_t *data, uint16_t dataSize) {
+uint8_t eeprom_read_char(uint16_t page, uint8_t *data, uint16_t dataSize) {
     uint16_t startPage = page;           // Define the starting page
     uint16_t endPage = page + (dataSize / 17);   // Calculate the end page
     uint16_t numberOfPages = endPage - startPage + 1;  // Calculate the number of pages needed

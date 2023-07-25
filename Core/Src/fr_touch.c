@@ -92,7 +92,7 @@ void xpt2046_read(SPI_HandleTypeDef *_hspi, volatile int i)
 }
 
 // Function to handle touch event states
-void dotyk(SPI_HandleTypeDef *hspi){
+void touch_handle(SPI_HandleTypeDef *hspi){
 	switch(TouchState){
 		case XPT2046_IDLE:
 			// If the touch state is idle, do nothing
@@ -163,7 +163,7 @@ void touch_irq(void)
 }
 
 // Function to calibrate the touch screen
-void kalibracja(SPI_HandleTypeDef *_hspi)
+void calibration(SPI_HandleTypeDef *_hspi)
 {
 	touch wynik;
 	wsp wsp;

@@ -12,6 +12,6 @@
 #include "fr_global.h"
 #include "fr_touch.h"
 
-void lvXPT2064_Read(lv_indev_drv_t * drv, lv_indev_data_t*data);
+void lv_xpt_2064_read(lv_indev_drv_t * drv, lv_indev_data_t*data);
 
 #endif /* LV_DRV_H_ */

@@ -56,7 +56,7 @@ uint8_t sensirion_common_generate_crc(uint8_t* data, uint16_t count) {
 
 
 // Function to get the color representation of air quality based on PPM value
-uint32_t getAirQualityColor(int ppm) {
+uint32_t get_air_quality_color(uint16_t ppm) {
 	unsigned int color1, color2; // Variables for color interpolation
 	int range1, range2; // Variables for range interpolation
 

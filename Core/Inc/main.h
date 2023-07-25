@@ -170,8 +170,8 @@ void Error_Handler(void);
 #define TCH_IRQ_EXTI_IRQn EXTI2_IRQn
 #define LCD_CS_Pin GPIO_PIN_10
 #define LCD_CS_GPIO_Port GPIOB
-#define ESP_RESET_Pin GPIO_PIN_12
-#define ESP_RESET_GPIO_Port GPIOB
+#define esp_reset_Pin GPIO_PIN_12
+#define esp_reset_GPIO_Port GPIOB
 #define ESP_ENABLE_Pin GPIO_PIN_8
 #define ESP_ENABLE_GPIO_Port GPIOA
 #define SPI2_CS_Pin GPIO_PIN_11

@@ -14,11 +14,11 @@
 #include "fr_ESP8266.h"
 #include "fr_lv_drv_touch.h"
 
-void pobierz_czas();
+void get_time();
 void sleep();
-void SetNextAlarm(void);
-int CheckAlarm();
-void pobierz_alarm();
+void set_next_alarm(void);
+int check_alarm();
+void get_alarm();
 void update_ui_data();
 void init_lvgl();
 

@@ -183,7 +183,7 @@ int main(void)
 	HAL_GPIO_WritePin(TCH_CS_GPIO_Port, TCH_CS_Pin, GPIO_PIN_SET);
 	init_lvgl();
 	lv_task_handler();
-	dotyk(&hspi3);
+	touch_handle(&hspi3);
 
 	/* enable tim1 timer for screen backlight turn off delay if wakedup from alarm */
 	__HAL_TIM_CLEAR_FLAG(&htim1, TIM_SR_UIF);
@@ -202,7 +202,7 @@ int main(void)
 	HAL_TIM_Base_Start(&htim4);
 
 	/* reset esp8266 module by output pin */
-	ESP_Server_Init();
+	esp_server_init();
 
 	/* start receiving data from esp8266 by USART1 circular DMA with line
 	 * switch to idle interrupt, disable half transfer interrupt */
@@ -263,17 +263,17 @@ int main(void)
 	}
 
 	/* update clock and calendar data for ui */
-	pobierz_czas();
+	get_time();
 
 	/* update time left to sensor measure*/
-	pobierz_alarm();
+	get_alarm();
 
 	/* update ui data */
 	if(init_lv){
 		if(!wifi_set){
 			update_ui_data();
 			lv_task_handler();
-			dotyk(&hspi3);
+			touch_handle(&hspi3);
 		}
 		/* in wi-fi change mode for loading screen and freeze UI */
 		else{
@@ -281,13 +281,13 @@ int main(void)
 		    lv_bar_set_value(ui_Bar11, wifi_change_bar, LV_ANIM_OFF);
 		    lv_label_set_text(ui_Label62, wifi_change_bar_label);
 			lv_task_handler();
-			dotyk(&hspi3);
+			touch_handle(&hspi3);
 		}
 	}
 
 	/* check condition and turn on stanby mode */
 	if((backlight==0)&&(PomiarFlag==1)){
-		if(CheckAlarm()){
+		if(check_alarm()){
 			sleep(120);
 		}
 	}
@@ -295,7 +295,7 @@ int main(void)
 	/* in case wifi change, stop communication with sensor and check for available WLAN networks */
 	if((wifi_list_send==1)&&(PomiarFlag==1)){
 		wifi_list_send=0;
-		ESP_Server_Init();
+		esp_server_init();
 		__HAL_DMA_DISABLE_IT(&hdma_usart1_rx, DMA_IT_HT);
 		HAL_UARTEx_ReceiveToIdle_DMA(&huart1, (uint8_t*) RxBuf, RxBuf_SIZE);
 		HAL_UART_Transmit_DMA(&huart1, (uint8_t*) "AT+CWLAP\r\n",strlen("AT+CWLAP\r\n"));
@@ -303,7 +303,7 @@ int main(void)
 
 	/* turn on communication with ESP caused by sensor measure alarm */
 	if(AlarmFlag){
-		ESP_Server_Init();
+		esp_server_init();
 		HAL_TIM_Base_Start(&htim4); //timer for ESP communication messages delays
 		AlarmFlag=0;
 		PomiarFlag=0;
@@ -551,8 +551,8 @@ static void MX_RTC_Init(void)
     uint32_t dataco2_dust = HAL_RTCEx_BKUPRead(&hrtc, RTC_BKP_DR0);
 
     // Split the read data into CO2 and Dust values
-    uint32_t co2_raw = dataco2_dust >> 16;  // upper 16 bits for CO2
-    uint32_t dust = dataco2_dust & 0x7FFF;           // lower 15 bits for dust
+    co2_raw = dataco2_dust >> 16;  // upper 16 bits for CO2
+    dust = dataco2_dust & 0x7FFF;           // lower 15 bits for dust
 
     // Convert data to strings
     sprintf(str_CO2, "%4u", co2_raw);
@@ -573,8 +573,8 @@ static void MX_RTC_Init(void)
     // Read year, battery level and sensor battery level
     uint32_t batlvlrok = HAL_RTCEx_BKUPRead(&hrtc, RTC_BKP_DR19);
     uint32_t rok = batlvlrok & 0xFFFF; // lower 16 bits for year
-    uint32_t bat_lvl_pre = (batlvlrok >> 16) & 0xFF; // next 8 bits for battery level
-    uint32_t bat_lvl_int = bat_lvl_pre;
+    bat_lvl_pre = (batlvlrok >> 16) & 0xFF; // next 8 bits for battery level
+    bat_lvl_int = bat_lvl_pre;
     sensor_data_table[3].pomiar = (batlvlrok >> 24) & 0xFF; // highest 8 bits for sensor battery level
     // Convert data to strings
     sprintf(bat_lvl_lb, "%3u", bat_lvl_pre);
@@ -1171,7 +1171,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOA, TCH_CS_Pin|BACKLIGHT_Pin|ESP_ENABLE_Pin|SPI2_CS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LCD_DC_Pin|LCD_RST_Pin|LCD_CS_Pin|ESP_RESET_Pin
+  HAL_GPIO_WritePin(GPIOB, LCD_DC_Pin|LCD_RST_Pin|LCD_CS_Pin|esp_reset_Pin
                           |SD_RELAY_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : LED_PC13_Pin */
@@ -1201,12 +1201,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(TCH_IRQ_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : ESP_RESET_Pin */
-  GPIO_InitStruct.Pin = ESP_RESET_Pin;
+  /*Configure GPIO pin : esp_reset_Pin */
+  GPIO_InitStruct.Pin = esp_reset_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(ESP_RESET_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(esp_reset_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : ESP_ENABLE_Pin */
   GPIO_InitStruct.Pin = ESP_ENABLE_Pin;
